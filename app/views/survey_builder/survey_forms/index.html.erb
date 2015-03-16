@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Survey Forms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Points</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @survey_forms.each do |survey_form| %>
+      <tr>
+        <td><%= survey_form.name %></td>
+        <td><%= survey_form.points %></td>
+        <td><%= link_to 'Show', survey_form %></td>
+        <td><%= link_to 'Edit', edit_survey_form_path(survey_form) %></td>
+        <td><%= link_to 'Destroy', survey_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Survey form', new_survey_form_path %>
