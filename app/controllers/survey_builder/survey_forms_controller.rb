@@ -2,7 +2,8 @@ require_dependency "survey_builder/application_controller"
 
 module SurveyBuilder
   class SurveyFormsController < ApplicationController
-    before_action :set_survey_form, only: [:show, :edit, :update, :destroy]
+    before_action :is_admin! 
+    before_action :set_survey_form , only: [:show, :edit, :update, :destroy, :results]
 
     # GET /survey_forms
     def index
@@ -26,7 +27,6 @@ module SurveyBuilder
     # POST /survey_forms
     def create
       @survey_form = SurveyForm.new(survey_form_params)
-
       if @survey_form.save
         redirect_to @survey_form, notice: 'Survey form was successfully created.'
       else
@@ -49,10 +49,14 @@ module SurveyBuilder
       redirect_to survey_forms_url, notice: 'Survey form was successfully destroyed.'
     end
 
+    def results
+      @survey_responses = @survey_form.survey_responses
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_survey_form
-        @survey_form = SurveyForm.find(params[:id])
+        @survey_form = SurveyForm.includes(:questions).find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

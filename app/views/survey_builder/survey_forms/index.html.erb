@@ -16,6 +16,7 @@
       <tr>
         <td><%= survey_form.name %></td>
         <td><%= survey_form.points %></td>
+        <td><%= survey_form.questions.count %></td>
         <td><%= link_to 'Show', survey_form %></td>
         <td><%= link_to 'Edit', edit_survey_form_path(survey_form) %></td>
         <td><%= link_to 'Destroy', survey_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -3,10 +3,20 @@ module SurveyBuilder
         class Checkbox < Question
 
             def set_type
-                self.type = self.class
+                self.type = self.class.name
             end
 
             def validate_answer
+                question = parse_question_data
+                Rails.logger.info "#{question}"
+                answer = parse_answer_data(answer)
+                answer.each do |key, ans|
+                    ans.each do |option|
+                        unless (key >= 0  && key < question.count && question[key]["options"].find_index(option))
+                            raise SurveyBuilder::InvalidAnswerError
+                        end
+                    end
+                end
             end
 
             def parse_question_data
@@ -22,7 +32,7 @@ module SurveyBuilder
                 #   options : ["A", "B", "C"]
                 # }
 
-                parsed_question = JSON.parse(question_data)
+                parsed_question = question_data
                 if Hash == parsed_question.class
                     parsed_question = [parsed_question]
                 end

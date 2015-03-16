@@ -10,5 +10,12 @@
   <%= @survey_form.points %>
 </p>
 
+<% @survey_form.questions.each do |question| %>
+	Question <br />
+  	<%= question.type %>
+  	<%= question.parse_question_data.to_json %>
+	<br />	
+<% end %>
+
 <%= link_to 'Edit', edit_survey_form_path(@survey_form) %> |
 <%= link_to 'Back', survey_forms_path %>

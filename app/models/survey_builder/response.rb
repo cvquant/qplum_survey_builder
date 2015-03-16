@@ -9,11 +9,11 @@ module SurveyBuilder
 
 
     def get_question_type
-		question.type
-	end	
+  		question.type
+  	end	
 
-	def validate_answer
-		question.validate_answer(self)
-	end
+  	def validate_answer
+  		question.validate_answer(self)
+  	end
   end
 end
