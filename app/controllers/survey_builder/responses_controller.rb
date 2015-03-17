@@ -2,6 +2,7 @@ require_dependency "survey_builder/application_controller"
 
 module SurveyBuilder
   class ResponsesController < ApplicationController
+    before_action :set_survey_form!
     before_action :set_response, only: [:show, :edit, :update, :destroy]
 
     # GET /responses
@@ -49,7 +50,12 @@ module SurveyBuilder
     end
 
     private
+      
       # Use callbacks to share common setup or constraints between actions.
+      def set_survey_form!
+        @survey_form = SurveyForm.find(params[:survey_form_id])
+      end
+
       def set_response
         @response = Response.find(params[:id])
       end

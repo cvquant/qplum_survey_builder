@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @survey_response %> |
-<%= link_to 'Back', survey_responses_path %>
+<%= link_to 'Show', survey_form_survey_response_path(@survey_form, @survey_response) %> |
+<%= link_to 'Back', survey_form_survey_responses_path(@survey_form) %>

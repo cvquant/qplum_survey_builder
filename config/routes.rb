@@ -3,10 +3,9 @@ SurveyBuilder::Engine.routes.draw do
 
   	get 'results', on: :member
 
-  	resources :questions do 
-  		resources :responses
-  	end
+  	resources :questions
   	resources :survey_responses
+	resources :responses
 
   end  
 

@@ -15,5 +15,5 @@
   <%= @survey_response.time_to_answer %>
 </p>
 
-<%= link_to 'Edit', edit_survey_response_path(@survey_response) %> |
-<%= link_to 'Back', survey_responses_path %>
+<%= link_to 'Edit', edit_survey_form_survey_response_path(@survey_form, @survey_response) %> |
+<%= link_to 'Back', survey_form_survey_responses_path(@survey_form) %>

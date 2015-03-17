@@ -1,4 +1,4 @@
-<%= form_for(@survey_form, @survey_response) do |f| %>
+<%= form_for [@survey_form, @survey_response] do |f| %>
   <% if @survey_response.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@survey_response.errors.count, "error") %> prohibited this survey_response from being saved:</h2>
@@ -10,6 +10,9 @@
       </ul>
     </div>
   <% end %>
+  <% @responses.each do |response| %>
+    <%= render 'survey_builder/responses/form',  :response => response %>
+  <% end %>
 
   <div class="field">
     <%= f.label :survey_form_id %><br>
@@ -18,10 +21,9 @@
   <div class="field">
     <%= f.label :user_id %><br>
     <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :time_to_answer %><br>
-    <%= f.number_field :time_to_answer %>
+  </div>  
+  <div class="field">    
+    <%= f.hidden_field :time_to_answer %>
   </div>
   <div class="actions">
     <%= f.submit %>

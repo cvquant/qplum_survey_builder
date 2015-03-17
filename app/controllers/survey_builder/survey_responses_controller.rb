@@ -2,11 +2,12 @@ require_dependency "survey_builder/application_controller"
 
 module SurveyBuilder
   class SurveyResponsesController < ApplicationController
+    before_action :set_survey_form!
     before_action :set_survey_response, only: [:show, :edit, :update, :destroy]
 
     # GET /survey_responses
     def index
-      @survey_responses = SurveyResponse.all
+      @survey_responses = @survey_form.survey_responses
     end
 
     # GET /survey_responses/1
@@ -15,7 +16,14 @@ module SurveyBuilder
 
     # GET /survey_responses/new
     def new
-      @survey_response = SurveyResponse.new
+      @questions = @survey_form.questions
+      @survey_response = @survey_form.survey_responses.build(survey_form: @survey_form)
+      @responses = []
+      @questions.each do |question|
+        response = question.responses.build()
+        @responses.push(response)
+      end
+
     end
 
     # GET /survey_responses/1/edit
@@ -24,10 +32,10 @@ module SurveyBuilder
 
     # POST /survey_responses
     def create
-      @survey_response = SurveyResponse.new(survey_response_params)
+      @survey_response = @survey_form.survey_responses.build(survey_response_params)
 
       if @survey_response.save
-        redirect_to @survey_response, notice: 'Survey response was successfully created.'
+        redirect_to survey_form_survey_response_path(@survey_form, @survey_response), notice: 'Survey response was successfully created.'
       else
         render :new
       end
@@ -36,7 +44,7 @@ module SurveyBuilder
     # PATCH/PUT /survey_responses/1
     def update
       if @survey_response.update(survey_response_params)
-        redirect_to @survey_response, notice: 'Survey response was successfully updated.'
+        redirect_to survey_form_survey_response_path(@survey_form, @survey_response), notice: 'Survey response was successfully updated.'
       else
         render :edit
       end
@@ -45,11 +53,15 @@ module SurveyBuilder
     # DELETE /survey_responses/1
     def destroy
       @survey_response.destroy
-      redirect_to survey_responses_url, notice: 'Survey response was successfully destroyed.'
+      redirect_to survey_form_survey_responses_path(@survey_form), notice: 'Survey response was successfully destroyed.'
     end
 
     private
       # Use callbacks to share common setup or constraints between actions.
+      def set_survey_form!
+        @survey_form = SurveyForm.find(params[:survey_form_id])
+      end
+
       def set_survey_response
         @survey_response = SurveyResponse.find(params[:id])
       end
