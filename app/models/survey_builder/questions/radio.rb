@@ -10,7 +10,7 @@ module SurveyBuilder
                 question = parse_question_data
                 answer = parse_answer_data(answer)
                 answer.each do |key, ans|
-                    unless key >= 0  && key < question.count && question[key]["options"].find_index ans
+                    unless (key >= 0  && key < question.count && question[key]["options"].find_index(ans))
                         raise SurveyBuilder::InvalidAnswerError
                     end            
                 end

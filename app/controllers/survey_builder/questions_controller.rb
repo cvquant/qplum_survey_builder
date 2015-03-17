@@ -7,7 +7,7 @@ module SurveyBuilder
 
     # GET /questions
     def index
-      @questions = Question.all
+      @questions = Question.find(survey_form: @survey_form)
     end
 
     # GET /questions/1
@@ -16,7 +16,7 @@ module SurveyBuilder
 
     # GET /questions/new
     def new
-      @question = Question.new
+      @question = Question.new(survey_form: @survey_form)
     end
 
     # GET /questions/1/edit
@@ -25,10 +25,10 @@ module SurveyBuilder
 
     # POST /questions
     def create
-      @question = Question.new(question_params)
+      @question = Question.new(question_params, survey_form: @survey_form)
 
       if @question.save
-        redirect_to @question, notice: 'Question was successfully created.'
+        redirect_to survey_form_question_path(@survey_form.id, @question.id), notice: 'Question was successfully created.'
       else
         render :new
       end
@@ -37,7 +37,7 @@ module SurveyBuilder
     # PATCH/PUT /questions/1
     def update
       if @question.update(question_params)
-        redirect_to @question, notice: 'Question was successfully updated.'
+        redirect_to survey_form_question_path(@question.survey_form_id, @question.id), notice: 'Question was successfully updated.'
       else
         render :edit
       end
@@ -53,7 +53,7 @@ module SurveyBuilder
 
       # Use callbacks to share common setup or constraints between actions.
       def set_survey_form!
-        @survey_form = Question.find(params[:survey_form_id])
+        @survey_form = SurveyForm.find(params[:survey_form_id])
       end
       
       def set_question!
