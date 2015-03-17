@@ -16,6 +16,18 @@ ActiveRecord::Schema.define(version: 20150316091329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "survey_builder_answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "survey_response_id"
+    t.json     "answer_data"
+    t.integer  "time_to_answer"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "survey_builder_answers", ["question_id"], name: "index_survey_builder_answers_on_question_id", using: :btree
+  add_index "survey_builder_answers", ["survey_response_id"], name: "index_survey_builder_answers_on_survey_response_id", using: :btree
+
   create_table "survey_builder_questions", force: :cascade do |t|
     t.integer  "survey_form_id"
     t.string   "name"
@@ -29,18 +41,6 @@ ActiveRecord::Schema.define(version: 20150316091329) do
   end
 
   add_index "survey_builder_questions", ["survey_form_id"], name: "index_survey_builder_questions_on_survey_form_id", using: :btree
-
-  create_table "survey_builder_responses", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "survey_response_id"
-    t.json     "answer_data"
-    t.integer  "time_to_answer"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
-  add_index "survey_builder_responses", ["question_id"], name: "index_survey_builder_responses_on_question_id", using: :btree
-  add_index "survey_builder_responses", ["survey_response_id"], name: "index_survey_builder_responses_on_survey_response_id", using: :btree
 
   create_table "survey_builder_survey_forms", force: :cascade do |t|
     t.string   "name"

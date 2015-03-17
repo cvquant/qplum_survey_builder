@@ -1,5 +1,5 @@
 module SurveyBuilder
-  class Response < ActiveRecord::Base
+  class Answer < ActiveRecord::Base
     belongs_to :question
     belongs_to :user
 

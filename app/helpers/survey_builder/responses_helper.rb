@@ -1,4 +1,4 @@
 module SurveyBuilder
-  module ResponsesHelper
+  module AnswersHelper
   end
 end

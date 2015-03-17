@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module SurveyBuilder
-  class ResponseTest < ActiveSupport::TestCase
+  class AnswerTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

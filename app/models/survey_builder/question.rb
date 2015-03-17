@@ -1,7 +1,7 @@
 module SurveyBuilder
   class Question < ActiveRecord::Base
   	belongs_to	:survey_form , :inverse_of => :questions
-	has_many	:responses	
+	has_many	:answers	
 	before_create :set_type
 
 	default_scope { order(:position) } 

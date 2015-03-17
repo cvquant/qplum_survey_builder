@@ -18,11 +18,12 @@ module SurveyBuilder
     def new
       @questions = @survey_form.questions
       @survey_response = @survey_form.survey_responses.build(survey_form: @survey_form)
-      @responses = []
+      @answers = []
       @questions.each do |question|
-        response = question.responses.build()
-        @responses.push(response)
+        answer = question.answers.build()
+        @answers.push(answer)
       end
+      @survey_response.answers = @answers
 
     end
 
@@ -68,7 +69,7 @@ module SurveyBuilder
 
       # Only allow a trusted parameter "white list" through.
       def survey_response_params
-        params.require(:survey_response).permit(:survey_form_id, :user_id, :time_to_answer)
+        params.require(:survey_response).permit(:survey_form_id, :user_id, :time_to_answer, :answer)
       end
   end
 end

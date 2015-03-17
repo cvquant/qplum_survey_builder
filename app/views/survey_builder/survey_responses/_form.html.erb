@@ -10,8 +10,21 @@
       </ul>
     </div>
   <% end %>
-  <% @responses.each do |response| %>
-    <%= render 'survey_builder/responses/form',  :response => response %>
+
+  <% f.fields_for :answers do |answer_fields| %>    
+      <div class="field">
+        <%= answer_fields.label :question_id %><br>
+        <%= answer_fields.text_field  :question_id %>
+      </div>
+
+      <div class="field">
+        <%= answer_fields.label :answer_data %><br>
+        <%= answer_fields.text_field :answer_data %>
+      </div>
+      <div class="field">
+        <%= answer_fields.label :time_to_answer %><br>
+        <%= answer_fields.text_field :time_to_answer %>
+      </div>    
   <% end %>
 
   <div class="field">
