@@ -20,11 +20,9 @@ module SurveyBuilder
       @survey_response = @survey_form.survey_responses.build(survey_form: @survey_form)
       @answers = []
       @questions.each do |question|
-        answer = question.answers.build()
+        answer = @survey_response.answers.build(question: question)
         @answers.push(answer)
       end
-      @survey_response.answers = @answers
-
     end
 
     # GET /survey_responses/1/edit
@@ -69,7 +67,7 @@ module SurveyBuilder
 
       # Only allow a trusted parameter "white list" through.
       def survey_response_params
-        params.require(:survey_response).permit(:survey_form_id, :user_id, :time_to_answer, :answer)
+        params.require(:survey_response).permit(:survey_form_id, :user_id, :time_to_answer, answers_attributes: [:question_id, :answer_data, :time_to_answer])
       end
   end
 end

@@ -6,11 +6,11 @@ module SurveyBuilder
                 self.type = self.class.name
             end
 
-            def validate_answer
+            def validate_answer(answer)
                 question = parse_question_data
                 answer = parse_answer_data(answer)
                 answer.each do |key, ans|
-                    unless (key >= 0  && key < question.count && question[key]["options"].find_index(ans))
+                    unless (key.to_i >= 0  && key.to_i < question.count && question[key.to_i]["options"].find_index(ans))
                         raise SurveyBuilder::InvalidAnswerError
                     end            
                 end
@@ -28,7 +28,7 @@ module SurveyBuilder
                 #   options : ["A", "B", "C"]
                 # }
 
-                parsed_question = JSON.parse(question_data)
+                parsed_question = question_data
                 if Hash == parsed_question.class
                     parsed_question = [parsed_question]
                 end
@@ -41,7 +41,7 @@ module SurveyBuilder
             def parse_answer_data(answer)
                 super(answer)
                 # The answer_data is supposed to be a hash with index being the key and response being the value
-                parsed_response = JSON.parse(answer.response)
+                parsed_response = answer.answer_data
                 return parsed_response
             end
         end

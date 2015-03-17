@@ -15,5 +15,9 @@ module SurveyBuilder
   	def validate_answer
   		question.validate_answer(self)
   	end
+
+    def to_param
+    end
+    
   end
 end

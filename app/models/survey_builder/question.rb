@@ -21,7 +21,7 @@ module SurveyBuilder
 	    raise "You must override this method in each model inheriting from Question."
 	end
 
-	def validate_answer
+	def validate_answer(answer)
 	end
 
 	# This is a method which duplicates a questions and saves it to a new survey_form.
@@ -36,7 +36,7 @@ module SurveyBuilder
 	def parse_question_data
 	end
 
-	def parse_answer_data
+	def parse_answer_data(answer)
 	end
 
 

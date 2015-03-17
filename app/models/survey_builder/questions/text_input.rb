@@ -34,7 +34,7 @@ module SurveyBuilder
             def parse_answer_data(answer)
                 super(answer)
                 # The answer_data is supposed to be an array of text entered in order.
-                parsed_response = JSON.parse(answer.response)
+                parsed_response = answer.answer_data
                 return parsed_response
             end        
         end

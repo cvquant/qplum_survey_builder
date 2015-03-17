@@ -6,14 +6,14 @@ module SurveyBuilder
                 self.type = self.class.name
             end
 
-            def validate_answer
+            def validate_answer(answer)
                 question = parse_question_data
                 Rails.logger.info "#{question}"
                 answer = parse_answer_data(answer)
                 answer.each do |key, ans|
                     ans.each do |option|
-                        unless (key >= 0  && key < question.count && question[key]["options"].find_index(option))
-                            raise SurveyBuilder::InvalidAnswerError
+                        unless (key.to_i >= 0  && key.to_i < question.count && question[key.to_i]["options"].find_index(option))
+                            raise SurveyBuilder::InvalidAnswer
                         end
                     end
                 end
@@ -45,7 +45,7 @@ module SurveyBuilder
             def parse_answer_data(answer)
                 super(answer)
                 # The answer_data is supposed to be a hash with index being the key and response being the list of values selected
-                parsed_response = JSON.parse(answer.response)
+                parsed_response = answer.answer_data
                 return parsed_response
             end
         end

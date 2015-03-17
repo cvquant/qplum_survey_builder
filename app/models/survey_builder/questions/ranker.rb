@@ -7,7 +7,7 @@ module SurveyBuilder
             end
         	# This is the drag and drop ranker. User needs to arrange their preferences by drag-dropping them.
 
-        	def validate_answer
+        	def validate_answer(answer)
             end
 
             def parse_question_data
@@ -26,7 +26,7 @@ module SurveyBuilder
             def parse_answer_data(answer)
                 super(answer)
                 # The answer_data is supposed to be an array of ranked indices.
-                parsed_response = JSON.parse(answer.response)
+                parsed_response = answer.answer_data
                 return parsed_response
             end
 
