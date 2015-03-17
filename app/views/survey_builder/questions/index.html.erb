@@ -24,9 +24,9 @@
         <td><%= question.question_data %></td>
         <td><%= question.answer_specs %></td>
         <td><%= question.position %></td>
-        <td><%= link_to 'Show', survey_form_question_path(question.survey_form_id, question.id) %></td>
-        <td><%= link_to 'Edit', edit_survey_form_question_path(question.survey_form_id, question.id) %></td>
-        <td><%= link_to 'Destroy', survey_form_question_path(question.survey_form_id, question.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', survey_form_question_path(@survey_form, question) %></td>
+        <td><%= link_to 'Edit', edit_survey_form_question_path(@survey_form, question) %></td>
+        <td><%= link_to 'Destroy', survey_form_question_path(@survey_form, question), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_survey_form_question_path %>
+<%= link_to 'New Question', new_survey_form_question_path(@survey_form) %>

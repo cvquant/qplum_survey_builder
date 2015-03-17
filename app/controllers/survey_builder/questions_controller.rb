@@ -7,7 +7,7 @@ module SurveyBuilder
 
     # GET /questions
     def index
-      @questions = Question.find(survey_form: @survey_form)
+      @questions = @survey_form.questions
     end
 
     # GET /questions/1
@@ -16,19 +16,21 @@ module SurveyBuilder
 
     # GET /questions/new
     def new
-      @question = Question.new(survey_form: @survey_form)
+      @question = @survey_form.questions.build(survey_form: @survey_form)
     end
 
     # GET /questions/1/edit
     def edit
+
     end
 
     # POST /questions
-    def create
-      @question = Question.new(question_params, survey_form: @survey_form)
+    def create      
+      @question = @survey_form.questions.build(question_params)
 
       if @question.save
-        redirect_to survey_form_question_path(@survey_form.id, @question.id), notice: 'Question was successfully created.'
+        Rails.logger.info "Saved question with id - #{@question.id} in survey_form "
+        redirect_to survey_form_question_path(@survey_form, @question), notice: 'Question was successfully created.'
       else
         render :new
       end
@@ -57,7 +59,7 @@ module SurveyBuilder
       end
       
       def set_question!
-        @question = Question.find(params[:id])
+        @question = @survey_form.questions.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
