@@ -6,6 +6,8 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'pg'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

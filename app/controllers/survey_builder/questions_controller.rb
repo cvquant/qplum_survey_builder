@@ -29,7 +29,7 @@ module SurveyBuilder
       @question = @survey_form.questions.build(question_params)
 
       if @question.save
-        Rails.logger.info "Saved question with id - #{@question.id} in survey_form "
+        # Rails.logger.info "Saved question with id - #{@question.id} in survey_form "
         redirect_to survey_form_question_path(@survey_form, @question), notice: 'Question was successfully created.'
       else
         render :new
@@ -39,7 +39,7 @@ module SurveyBuilder
     # PATCH/PUT /questions/1
     def update
       if @question.update(question_params)
-        redirect_to survey_form_question_path(@question.survey_form_id, @question.id), notice: 'Question was successfully updated.'
+        redirect_to survey_form_question_path(@survey_form, @question), notice: 'Question was successfully updated.'
       else
         render :edit
       end
