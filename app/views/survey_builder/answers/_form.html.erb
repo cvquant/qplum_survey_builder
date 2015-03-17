@@ -1,27 +1,26 @@
-<%= form.fields_for "answer[]" do |f| %>
-  <% if answer.errors.any? %>
+<%= f.fields_for :answers do |form|%>  
+
+  <% if form.object.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+      <h2><%= pluralize(form.object.errors.count, "error") %> prohibited this answer from being saved:</h2>
 
       <ul>
-      <% answer.errors.full_messages.each do |message| %>
+      <% form.object.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
-    </div>
   <% end %>
+     <div class="field">
+      <%= form.label :question_id %><br>
+      <%= form.text_field  :question_id %>
+    </div>
 
-  <div class="field">
-    <%= f.label :question_id %><br>
-    <%= f.text_field  :question_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :answer_data %><br>
-    <%= f.text_field :answer_data %>
-  </div>
-  <div class="field">
-    <%= f.label :time_to_answer %><br>
-    <%= f.text_field :time_to_answer %>
-  </div>
+    <div class="field">
+      <%= form.label :answer_data %><br>
+      <%= form.text_field :answer_data %>
+    </div>
+    <div class="field">
+      <%= form.label :time_to_answer %><br>
+      <%= form.text_field :time_to_answer %>
+    </div>
 <% end %>

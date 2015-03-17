@@ -10,10 +10,7 @@
       </ul>
     </div>
   <% end %>  
-  <%= f.fields_for :answers do |answer_fields|%>  
-    <%= render 'survey_builder/responses/form',  :form => f %>
-  <% end %>
-
+  <%= render "survey_builder/answers/form" , :f => f %>
   <div class="field">
     <%= f.label :survey_form_id %><br>
     <%= f.text_field :survey_form_id %>

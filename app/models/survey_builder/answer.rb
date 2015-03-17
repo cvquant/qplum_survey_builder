@@ -2,6 +2,7 @@ module SurveyBuilder
   class Answer < ActiveRecord::Base
     belongs_to :question
     belongs_to :user
+    belongs_to :survey_response
 
     validates	:question, :presence => true
 
@@ -18,6 +19,6 @@ module SurveyBuilder
 
     def to_param
     end
-    
+
   end
 end

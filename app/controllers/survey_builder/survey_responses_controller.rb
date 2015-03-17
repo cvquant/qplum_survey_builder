@@ -20,9 +20,11 @@ module SurveyBuilder
       @survey_response = @survey_form.survey_responses.build(survey_form: @survey_form)
       @answers = []
       @questions.each do |question|
+        Rails.logger.info "\n\n\n\n\nThere are some questions \n"
         answer = @survey_response.answers.build(question: question)
         @answers.push(answer)
       end
+      Rails.logger.info "\n\n\n\n\n\nSurvey Response answers count : #{@survey_response.answers.size} \n\n\n\n\n\n"
     end
 
     # GET /survey_responses/1/edit

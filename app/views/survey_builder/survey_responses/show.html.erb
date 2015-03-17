@@ -15,5 +15,13 @@
   <%= @survey_response.time_to_answer %>
 </p>
 
+<p>
+  <strong>Response:</strong>
+  <% @survey_response.answers.each do |answer| %>
+  	<%= answer.answer_data %> <br />
+  <% end %>
+</p>
+
+
 <%= link_to 'Edit', edit_survey_form_survey_response_path(@survey_form, @survey_response) %> |
 <%= link_to 'Back', survey_form_survey_responses_path(@survey_form) %>
