@@ -33,5 +33,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Question', new_survey_form_question_path(@survey_form) %>
+<% @types.each do |type, class_name| %>
+  <%= link_to "New #{type} Question", new_typed_survey_form_questions_path(@survey_form, type) %><br />
+<% end %>

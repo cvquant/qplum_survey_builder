@@ -1,6 +1,20 @@
 module SurveyBuilder
     module Questions
         class TextInput < Question
+            
+            store_accessor :question_data, :min_inputs, :max_inputs
+
+            def self.construct_question_data(raw_data)
+                Rails.logger.info "#{raw_data}"
+                min_inputs = raw_data[:min_inputs]
+                max_inputs = raw_data[:max_inputs]                
+                question_hash = {:min_inputs => min_inputs , :max_inputs => max_inputs}
+                return question_hash.to_json
+            end
+
+            def self.construct_answer_specs(raw_data)
+                return raw_data[:answer_specs]
+            end
 
             def set_type
                 self.type = self.class.name

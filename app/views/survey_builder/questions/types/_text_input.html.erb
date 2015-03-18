@@ -1,0 +1,13 @@
+<%= f.fields_for :question do |form|%>  
+	<div class="field" id="<%= type %>_question_data">		
+		<%= form.label(:min_inputs) %><br>
+		<%= form.text_field(:min_inputs) %><br>
+
+		<%= form.label(:max_inputs) %><br>
+		<%= form.text_field(:max_inputs) %><br>
+	</div>
+	<div class="field" id="<%= type %>_answer_specs">
+	  <%= form.label :answer_specs %><br>
+	  <%= form.text_field :answer_specs %>
+	</div>
+<% end %>

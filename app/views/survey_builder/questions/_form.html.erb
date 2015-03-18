@@ -2,7 +2,6 @@
   <% if @question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
       <ul>
       <% @question.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -20,16 +19,19 @@
   </div>
   <div class="field">
     <%= f.label :type %><br>
-    <%= f.text_field :type %>
+    <%= f.select (:type) do %>
+      <% @types.each do |type, class_name| %>
+        <%= content_tag(:option, type, value: type) %>
+      <% end %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :question_data %><br>
-    <%= f.text_field :question_data %>
-  </div>
-  <div class="field">
-    <%= f.label :answer_specs %><br>
-    <%= f.text_field :answer_specs %>
-  </div>
+  <% if @qtype %>
+    <%= render "survey_builder/questions/types/#{@qtype_cname}" , :question => @question.becomes(@qtype) , :f => f , :type => @qtype_cname %>
+  <% else %>
+    <% @types.each do |type, class_name| %>
+      <%= render "survey_builder/questions/types/#{type}" , :question => @question.becomes(class_name) , :f => f , :type => type %>    
+    <% end %>
+  <% end %>
   <div class="field">
     <%= f.label :position %><br>
     <%= f.number_field :position %>
