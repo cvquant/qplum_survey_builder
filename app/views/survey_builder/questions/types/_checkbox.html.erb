@@ -1,8 +1,13 @@
-<div class="field" id="<%= type %>_question_data">
-      <%= f.label :question_data %><br>
-      <%= f.text_field :question_data %>
-</div>
-<div class="field" id="<%= type %>_answer_specs">
-  <%= f.label :answer_specs %><br>
-  <%= f.text_field :answer_specs %>
-</div>
+<%= f.fields_for :question do |form|%>  
+	<div class="field" id="<%= type %>_question_data">
+	    <%= form.label(:helper_text) %><br>
+		<%= form.text_field(:helper_text) %><br>
+
+		<%= form.label(:options) %><br>
+		<%= form.text_field(:options) %><br>
+	</div>
+	<div class="field" id="<%= type %>_answer_specs">
+	  <%= form.label :answer_specs %><br>
+	  <%= form.text_field :answer_specs %>
+	</div>
+<% end %>

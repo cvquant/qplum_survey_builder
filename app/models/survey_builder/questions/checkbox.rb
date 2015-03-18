@@ -2,6 +2,16 @@ module SurveyBuilder
     module Questions
         class Checkbox < Question
 
+            store_accessor :question_data, :helper_text, :options
+
+            def self.construct_question_data(raw_data)                
+                return raw_data.permit(:options, :helper_text).to_json                
+            end
+
+            def self.construct_answer_specs(raw_data)
+                return raw_data[:answer_specs]
+            end
+
             def set_type
                 self.type = self.class.name
             end

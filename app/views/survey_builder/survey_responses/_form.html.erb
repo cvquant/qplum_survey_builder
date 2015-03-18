@@ -10,15 +10,8 @@
       </ul>
     </div>
   <% end %>  
-  <%= render "survey_builder/answers/form" , :f => f %>
-  <div class="field">
-    <%= f.label :survey_form_id %><br>
-    <%= f.text_field :survey_form_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>  
+  <%= render "survey_builder/answers/form" , :f => f %>  
+
   <div class="field">    
     <%= f.hidden_field :time_to_answer %>
   </div>

@@ -4,12 +4,8 @@ module SurveyBuilder
 
             store_accessor :question_data, :helper_text, :options
 
-            def self.construct_question_data(raw_data)
-                Rails.logger.info "#{raw_data}"
-                options = raw_data[:options]
-                helper_text = raw_data[:helper_text]                
-                question_hash = {:options => options , :helper_text => helper_text}
-                return question_hash.to_json
+            def self.construct_question_data(raw_data)                
+                return raw_data.permit(:options, :helper_text).to_json                
             end
 
             def self.construct_answer_specs(raw_data)
@@ -33,7 +29,7 @@ module SurveyBuilder
                 # 	options : '["Option 1", "Option 2", "Option 3", "Option 4"]'
                 # }        
 
-                parsed_question = JSON.parse(question_data)
+                parsed_question = question_data
                 return parsed_question
             end
 

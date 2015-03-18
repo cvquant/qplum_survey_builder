@@ -5,6 +5,8 @@ module SurveyBuilder
     before_action :set_survey_form!
     before_action :set_survey_response, only: [:show, :edit, :update, :destroy]
 
+    helper :all
+
     # GET /survey_responses
     def index
       @survey_responses = @survey_form.survey_responses
@@ -69,6 +71,8 @@ module SurveyBuilder
 
       # Only allow a trusted parameter "white list" through.
       def survey_response_params
+        params[:survey_response][:user_id] = current_user.id
+        params[:survey_response][:survey_form_id] = @survey_form.id
         params.require(:survey_response).permit(:survey_form_id, :user_id, :time_to_answer, answers_attributes: [:question_id, :answer_data, :time_to_answer])
       end
   end

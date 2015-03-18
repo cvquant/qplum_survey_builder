@@ -1,5 +1,5 @@
 <%= f.fields_for :answers do |form|%>  
-
+  <h3><%= form.object.question.question_title %></h3>
   <% if form.object.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(form.object.errors.count, "error") %> prohibited this answer from being saved:</h2>
@@ -10,17 +10,7 @@
       <% end %>
       </ul>
   <% end %>
-  <div class="field">
-    <%= form.label :question_id %><br>
-    <%= form.text_field  :question_id %>
-  </div>
+  <%= f.hidden_field :question_id, value: form.object.question.id %>
+  <%= render "survey_builder/answers/types/#{get_type_from_class_name(form.object.question.type)}" , :f => form, :question => form.object.question %>
 
-  <div class="field">
-    <%= form.label :answer_data %><br>
-    <%= form.text_field :answer_data %>
-  </div>
-  <div class="field">
-    <%= form.label :time_to_answer %><br>
-    <%= form.text_field :time_to_answer %>
-  </div>
 <% end %>

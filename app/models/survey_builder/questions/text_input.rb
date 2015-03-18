@@ -4,12 +4,8 @@ module SurveyBuilder
             
             store_accessor :question_data, :min_inputs, :max_inputs
 
-            def self.construct_question_data(raw_data)
-                Rails.logger.info "#{raw_data}"
-                min_inputs = raw_data[:min_inputs]
-                max_inputs = raw_data[:max_inputs]                
-                question_hash = {:min_inputs => min_inputs , :max_inputs => max_inputs}
-                return question_hash.to_json
+            def self.construct_question_data(raw_data)               
+                return raw_data.permit(:min_inputs, :max_inputs).to_json                 
             end
 
             def self.construct_answer_specs(raw_data)
@@ -41,7 +37,7 @@ module SurveyBuilder
                 # }
                 # min_inputs and max_inputs are for validation purposes.
 
-                parsed_question = JSON.parse(question_data)
+                parsed_question = question_data
                 return parsed_question
             end
 
