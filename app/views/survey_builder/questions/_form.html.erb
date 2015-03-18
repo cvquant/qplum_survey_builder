@@ -18,10 +18,15 @@
     <%= f.text_area :question_title %>
   </div>
   <div class="field">
-    <%= f.label :type %><br>
-    <%= f.select (:type) do %>
-      <% @types.each do |type, class_name| %>
-        <%= content_tag(:option, type, value: type) %>
+    <%= f.label :type %>
+    <% if @qtype %>
+      <%= f.label "#{@qtype_cname}" %><br>
+      <%= f.hidden_field :type ,  value: "#{@qtype_cname}" %><br>
+    <% else %>
+      <%= f.select (:type) do %>
+        <% @types.each do |type, class_name| %>
+          <%= content_tag(:option, type, value: type) %>
+        <% end %>
       <% end %>
     <% end %>
   </div>

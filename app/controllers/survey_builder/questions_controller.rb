@@ -17,7 +17,8 @@ module SurveyBuilder
     # GET /questions/new
     def new
       get_type_from_request
-      @question = @survey_form.questions.build(survey_form: @survey_form)
+      position = (@survey_form.questions.last.position || 0) + 1 
+      @question = @survey_form.questions.build(survey_form: @survey_form, position: position)
     end
 
     # GET /questions/1/edit
@@ -28,7 +29,6 @@ module SurveyBuilder
     # POST /questions
     def create      
       @question = @survey_form.questions.build(question_params)
-
       if @question.save
         # Rails.logger.info "Saved question with id - #{@question.id} in survey_form "
         redirect_to survey_form_question_path(@survey_form, @question), notice: 'Question was successfully created.'
@@ -54,7 +54,11 @@ module SurveyBuilder
 
     private
       def get_type_from_request
-        @qtype = @types[params[:type]] || Object.const_get(Question.find(params[:id]).type)
+        if params[:type]
+          @qtype = @types[params[:type]] 
+        elsif params[:id]
+          @qtype = Object.const_get(Question.find(params[:id]).type)
+        end
         qtype_cname = @types.select{|cname, class_name| class_name == @qtype } if @qtype
         @qtype_cname = qtype_cname.keys[0] if qtype_cname
       end

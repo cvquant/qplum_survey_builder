@@ -2,6 +2,20 @@ module SurveyBuilder
     module Questions
         class Ranker < Question
 
+            store_accessor :question_data, :helper_text, :options
+
+            def self.construct_question_data(raw_data)
+                Rails.logger.info "#{raw_data}"
+                options = raw_data[:options]
+                helper_text = raw_data[:helper_text]                
+                question_hash = {:options => options , :helper_text => helper_text}
+                return question_hash.to_json
+            end
+
+            def self.construct_answer_specs(raw_data)
+                return raw_data[:answer_specs]
+            end
+
             def set_type
                 self.type = self.class.name
             end
