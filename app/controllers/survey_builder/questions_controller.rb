@@ -17,7 +17,8 @@ module SurveyBuilder
     # GET /questions/new
     def new
       get_type_from_request
-      position = (@survey_form.questions.last.position || 0) + 1 
+      position = @survey_form.questions.last.position + 1  if @survey_form.questions.last
+      position ||= 1
       @question = @survey_form.questions.build(survey_form: @survey_form, position: position)
     end
 
