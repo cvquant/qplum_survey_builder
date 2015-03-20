@@ -38,6 +38,9 @@ module SurveyBuilder
                 # min_inputs and max_inputs are for validation purposes.
 
                 parsed_question = question_data
+                if Hash == parsed_question.class
+                    parsed_question = [parsed_question]
+                end
                 return parsed_question
             end
 

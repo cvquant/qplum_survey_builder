@@ -11,6 +11,7 @@
       </ul>
   <% end %>
   <%= f.hidden_field :question_id, value: form.object.question.id %>
-  <%= render "survey_builder/answers/types/#{get_type_from_class_name(form.object.question.type)}" , :f => form, :question => form.object.question %>
+  <%= render "survey_builder/answers/types/#{get_type_from_class_name(form.object.question.type)}" , :f => form, :answer => form.object %>
+
 
 <% end %>
