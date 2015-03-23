@@ -32,6 +32,7 @@ module SurveyBuilder
 	  			max_inputs = data["max_inputs"].to_i || default_max_inputs
 	  			max_inputs.times.each do |i|	  				
 	  				concat text_field_tag "answer[#{qid}][#{index}][]"
+            concat simple_format("\n") 
 	  			end
 	  			@content
 	  		end

@@ -1,11 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Survey Responses</h1>
-
+<h2> Survey Name - <%= @survey_form.name %> </h2>
 <table>
   <thead>
-    <tr>
-      <th>Survey form</th>
+    <tr>      
       <th>User</th>
       <th>Time to answer</th>
       <th colspan="3"></th>
@@ -15,8 +14,8 @@
   <tbody>
     <% @survey_responses.each do |survey_response| %>
       <tr>
-        <td><%= survey_response.survey_form %></td>
-        <td><%= survey_response.user %></td>
+        <td></td>
+        <td><%= survey_response.user.name %></td>
         <td><%= survey_response.time_to_answer %></td>
         <td><%= link_to 'Show', survey_form_survey_response_path(@survey_form, survey_response) %></td>
         <td><%= link_to 'Edit', edit_survey_form_survey_response_path(@survey_form, survey_response) %></td>

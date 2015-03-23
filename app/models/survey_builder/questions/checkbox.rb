@@ -22,7 +22,7 @@ module SurveyBuilder
                 answer = parse_answer_data(answer)
                 answer.each do |key, ans|
                     ans.each do |option|
-                        unless (key.to_i >= 0  && key.to_i < question.count && question[key.to_i]["options"].find_index(option))
+                        unless (key.to_i >= 0  && key.to_i < question.count && JSON.parse(question[key.to_i]["options"]).find_index(option))
                             raise SurveyBuilder::InvalidAnswer
                         end
                     end
@@ -58,6 +58,17 @@ module SurveyBuilder
                 parsed_response = answer.answer_data
                 return parsed_response
             end
+
+            def format_answer(response)                 
+                # response is supposed to be like this {"0"=>["A", "B", "C"], "1"=>["D", "E", "F", "G", "H"]}
+                resp = {}
+                response.each do |index, values|
+                    resp[index.to_i] = values
+                end
+                puts "Resposne - #{resp}"
+                return resp
+            end
+
         end
     end
 end

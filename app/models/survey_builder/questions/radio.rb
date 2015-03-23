@@ -20,7 +20,7 @@ module SurveyBuilder
                 question = parse_question_data
                 answer = parse_answer_data(answer)
                 answer.each do |key, ans|
-                    unless (key.to_i >= 0  && key.to_i < question.count && question[key.to_i]["options"].find_index(ans))
+                    unless (key.to_i >= 0  && key.to_i < question.count && JSON.parse(question[key.to_i]["options"]).find_index(ans))
                         raise SurveyBuilder::InvalidAnswerError
                     end            
                 end
@@ -53,6 +53,16 @@ module SurveyBuilder
                 # The answer_data is supposed to be a hash with index being the key and response being the value
                 parsed_response = answer.answer_data
                 return parsed_response
+            end
+
+            def format_answer(response)                 
+                # response is supposed to be like this {"0"=>["A", "B", "C"], "1"=>["D", "E", "F", "G", "H"]}
+                resp = {}
+                response.each do |index, values|
+                    resp[index.to_i] = values
+                end
+                puts "Resposne - #{resp}"
+                return resp
             end
         end
     end
