@@ -17,7 +17,7 @@ module SurveyBuilder
   			end
   			qid = question.id  			
   			question_data = question.parse_question_data
-  			content_tag(:div, :class => "question_form") do	  		
+  			content_tag(:div, :class => "question_form") do
 	  			question_data.each_with_index.collect do |data, index|
 	  				concat render_sub_question(index, data, qid)
 	  			end
@@ -31,7 +31,7 @@ module SurveyBuilder
 	  			min_inputs = data["min_inputs"].to_i || default_min_inputs
 	  			max_inputs = data["max_inputs"].to_i || default_max_inputs
 	  			max_inputs.times.each do |i|	  				
-	  				concat text_field_tag "answer[question][#{qid}][#{index}][]"
+	  				concat text_field_tag "answer[#{qid}][#{index}][]"
 	  			end
 	  			@content
 	  		end

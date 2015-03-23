@@ -35,6 +35,7 @@ module SurveyBuilder
 
     # POST /survey_responses
     def create
+      puts survey_response_params
       @survey_response = @survey_form.survey_responses.build(survey_response_params)
 
       if @survey_response.save
@@ -73,7 +74,24 @@ module SurveyBuilder
       def survey_response_params
         params[:survey_response][:user_id] = current_user.id
         params[:survey_response][:survey_form_id] = @survey_form.id
-        params.require(:survey_response).permit(:survey_form_id, :user_id, :time_to_answer, answers_attributes: [:question_id, :answer_data, :time_to_answer])
+        parse_user_response       
+        puts " params Here - #{params}" 
+        params.require(:survey_response).permit(:survey_form_id, :user_id, :time_to_answer, answers_attributes: [:question_id, :survey_response_id, :answer_data])        
+      end
+
+      def parse_user_response
+        answers = params[:answer]
+        formatted_answers = []
+        answers.each do | qid, ans |
+          question = Question.find_by_id(qid)
+          if question
+            formatted_answers.push({:question_id => qid,
+              :answer_data => question.format_answer(ans).to_json,
+              :survey_response_id => params[:survey_response_id]
+            })
+          end
+        end
+        params[:survey_response][:answers_attributes] = formatted_answers
       end
   end
 end
