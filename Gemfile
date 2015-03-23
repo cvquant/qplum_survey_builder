@@ -8,7 +8,7 @@ gemspec
 gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-
+gem 'touchpunch-rails'
 gem 'cocoon'
 
 # Declare any dependencies that are still in development here instead of in

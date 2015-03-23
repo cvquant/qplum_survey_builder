@@ -109,6 +109,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    touchpunch-rails (1.0.3)
+      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
 
@@ -122,3 +124,4 @@ DEPENDENCIES
   pg
   sqlite3
   survey_builder!
+  touchpunch-rails

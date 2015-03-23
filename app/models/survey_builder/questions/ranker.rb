@@ -30,6 +30,9 @@ module SurveyBuilder
                 # }        
 
                 parsed_question = question_data
+                if Hash == parsed_question.class
+                    parsed_question = [parsed_question]
+                end
                 return parsed_question
             end
 
