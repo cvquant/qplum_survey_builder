@@ -3,8 +3,8 @@
 	<% question_data = answer.question.parse_question_data %>
 	<div class="class_form">
 		<% question_data.each_with_index do |data, index| %>
-			<div class="ballot">
-				<input type="text" name="answers[<%= qid %>][<%= index %>]" id="rankdata_<%= qid %>_<%= index %>" />
+			<div id="ballot_<%= qid %>_<%= index %>">
+				<input type="text" name="answer[<%= qid %>][<%= index %>]" id="rankdata_<%= qid %>_<%= index %>" />
 				<% options = JSON.parse(data["options"]) %>
 				<ol id="sortable_<%= qid %>_<%= index %>" class="rankings">
 					<% options.each_with_index do |option, i| %>
@@ -16,9 +16,10 @@
 				</ol>
 				<script>
 					$("#sortable_<%= qid %>_<%= index %>").disableSelection();
-					$("#sortable_<%= qid %>_<%= index %>").sortable();
-					$("#sortable_<%= qid %>_<%= index %>").mouseup(function() {
-					 	$('#rankdata_<%= qid %>_<%= index %>').val($( "#sortable_<%= qid %>_<%= index %>" ).sortable("serialize"));						 	
+					$("#sortable_<%= qid %>_<%= index %>").sortable({ axis: "y", containment: "#ballot_<%= qid %>_<%= index %>" });
+					$("form").submit(function() {
+					 	$('#rankdata_<%= qid %>_<%= index %>').val($( "#sortable_<%= qid %>_<%= index %>" ).sortable("toArray"));						 	
+					 	alert($( "#sortable_<%= qid %>_<%= index %>" ).sortable("serialize"));
 					});
 				</script>
 			</div>

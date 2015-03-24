@@ -55,6 +55,17 @@ module SurveyBuilder
                 end
             end
 
+            def format_answer(response)
+                # response is supposed to be like {0 => [1,2,3,4] , 1=> [3,2,1]}                 
+                resp = {}
+                response.each do |index, values|
+                    resp[index.to_i] = values.split(',')
+                end
+                puts "Response - #{resp}"
+                return resp
+
+            end
+
         end
     end
 end
