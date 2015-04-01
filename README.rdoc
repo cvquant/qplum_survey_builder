@@ -20,7 +20,113 @@ This structure allows various questions of the same type but with minor changes 
 
 Each survey form consists of a set of questions with a specified position, which indicates the order in which they appear in the form.
 
-The server should get the survey response in the following format:
+A sample json response would for a survey form would be something like this:
+
+[
+  {
+    "qid": 16,
+    "question_data": {
+      "options": "[\"Saving\", \"Investing\", \"Both\", \"None\", \"Whatever\"]",
+      "helper_text": "Whatever you feel comfortable with"
+    },
+    "type": "SurveyBuilder::Questions::Ranker",
+    "answer_specs": [
+      
+    ],
+    "position": 1
+  },
+  {
+    "qid": 18,
+    "question_data": {
+      "options": "[\"Saving\", \"Investing\", \"Both\"]",
+      "helper_text": "Whatever you feel comfortable with"
+    },
+    "type": "SurveyBuilder::Questions::Ranker",
+    "answer_specs": [
+      
+    ],
+    "position": 3
+  },
+  {
+    "qid": 19,
+    "question_data": {
+      "min_inputs": "2",
+      "max_inputs": "5"
+    },
+    "type": "SurveyBuilder::Questions::TextInput",
+    "answer_specs": [
+      
+    ],
+    "position": 4
+  },
+  {
+    "qid": 20,
+    "question_data": [
+      {
+        "min_inputs": 1,
+        "max_inputs": 3
+      },
+      {
+        "min_inputs": 2,
+        "max_inputs": 5
+      }
+    ],
+    "type": "SurveyBuilder::Questions::TextInput",
+    "answer_specs": [
+      
+    ],
+    "position": 5
+  },
+  {
+    "qid": 21,
+    "question_data": {
+      "options": "[\"Dosa\", \"Dal Makhani\", \"Chhole bhature\"]",
+      "helper_text": "Indian"
+    },
+    "type": "SurveyBuilder::Questions::Checkbox",
+    "answer_specs": [
+      
+    ],
+    "position": 6
+  },
+  {
+    "qid": 22,
+    "question_data": [
+      {
+        "options": "[\"Dosa\", \"Idli\", \"Dal Makhani\", \"Chhole bhature\"]",
+        "helper_text": "Indian"
+      },
+      {
+        "options": "[\"Manchurian\", \"Noodles\", \"Rice\", \"Chowmein\"]",
+        "helper_text": "Chinese"
+      }
+    ],
+    "type": "SurveyBuilder::Questions::Checkbox",
+    "answer_specs": [
+      
+    ],
+    "position": 7
+  },
+  {
+    "qid": 23,
+    "question_data": [
+      {
+        "options": "[\"Dosa\", \"Idli\", \"Dal Makhani\", \"Chhole bhature\"]",
+        "helper_text": "Indian"
+      },
+      {
+        "options": "[\"Manchurian\", \"Noodles\", \"Chowmein\", \"Fried Rice\"]",
+        "helper_text": "Chinese"
+      }
+    ],
+    "type": "SurveyBuilder::Questions::Radio",
+    "answer_specs": [
+      
+    ],
+    "position": 8
+  }
+]
+The server should get the survey response in the following format for the above form:
 
 { 
 	"answer"=>{
@@ -114,15 +220,6 @@ It will be an array of choices(hash) in a particular order.
 	},
 ]
 A response like this,  "0"=>"ranking_1,ranking_3,ranking_0,ranking_2" for the first subquestion will indicate that the repositioned order was (Option 2, Option 4, Option 1, Option 3).
-
-
-
-
-
-
-
-
-
 
 
 
