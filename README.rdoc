@@ -1,3 +1,130 @@
 = SurveyBuilder
 
+The SurveyBuilder allows site administrators to create new surveys forms, add questions and view responses with ease. It also allows to add new question types easily by defining the required functions and views.
+
+Basic structure for each question is :
+- Question Heading
+	- SubQuestion 1
+		- Helper Text
+		- SubQuestion
+	- SubQuestion 2
+		- Helper Text
+		- SubQuestion
+	.
+	.
+	.
+
+Schema-wise, each question contains a question_data field and a answer_spec field, which contain the question data and the requirements for the answer.
+
+This structure allows various questions of the same type but with minor changes to be clubbed together as one single question.
+
+Each survey form consists of a set of questions with a specified position, which indicates the order in which they appear in the form.
+
+The server should get the survey response in the following format:
+
+{ 
+	"answer"=>{
+		"16"=>{
+			"0"=>"ranking_1,ranking_4,ranking_3,ranking_0,ranking_2"
+			},
+		"18"=>{
+		 	"0"=>"ranking_1,ranking_2,ranking_0"
+	 		}, 
+	 	"19"=>{
+	 		"0"=>["TextInputa", "TextInputb", "TextInputc", "", ""]
+ 		}, 
+ 		"20"=>{
+ 			"0"=>["TextInputA", "TextInputB", ""], 
+ 			"1"=>["TextInput1", "TextInput2", "TextInput3", "", ""]
+		}, 
+		"21"=>{
+			"0"=>["Dosa", "Dal Makhani"]
+		}, 
+		"22"=>{
+			"0"=>["Dal Makhani"], "1"=>["Noodles"]
+		}, 
+		"23"=>{
+			"0"=>"Dosa", 
+			"1"=>"Fried Rice"
+		}
+	}, 
+	"survey_response"=>{
+		"time_to_answer"=>""
+	}
+}
+
+where indices like 16, 18, 19 denote the question id, the next sub index like 0,1 denotes the subquestion number.
+16 and 18 are for ranker question.
+19,20 are for text inputs.
+21, 22 are for multiple checkbox questions
+23 is a radio button question with two subquestions.
+
+Currently, it supports four question types :
+
+1) Checkbox: 
+
+A checkbox can take in multiple inputs. 
+The format for the json question_data is as follows:
+It will either be an array or an hash.
+If array, it is supposed to be a list of multiple radio choice questions. Each element of array will be a hash as below.
+If hash, it is a single question with multiple selectable choices.
+Each hash will be have the following format.
+{
+  helper_text: "Select any two values"
+  options : ["A", "B", "C"]
+}
+
+When the server submits a response for a checkbox answer, it should be in the format as shown above.
+
+2) Radio
+
+The format for the json question_data is as follows:
+It will either be an array or an hash.
+If array, it is supposed to be a list of multiple radio choice questions. Each element of array will be a hash as below.
+If hash, it is a single question with radio choices.
+Each hash will be have the following format.
+{
+  helper_text: ""
+  options : ["A", "B", "C"]
+}
+
+3) TextInput
+
+The format for the json question_data is as follows:
+It will be array of hashes with each hash having the following format.             
+{
+  helper_text : "Some helper text",
+  min_inputs: 1,
+  max_inputs: 5,
+}
+min_inputs and max_inputs are for validation purposes.
+
+4) Ranker 
+
+The format for the json question_data is as follows:
+It will be an array of choices(hash) in a particular order. 
+[
+	{
+		helper_text: "Some helper text"
+		options : '["Option 1", "Option 2", "Option 3", "Option 4"]'
+	},   
+	{
+		helper_text: "Some helper text 2"
+		options : '["Option 21", "Option 22", "Option 23", "Option 24"]'
+	},
+]
+A response like this,  "0"=>"ranking_1,ranking_3,ranking_0,ranking_2" for the first subquestion will indicate that the repositioned order was (Option 2, Option 4, Option 1, Option 3).
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project rocks and uses MIT-LICENSE.
