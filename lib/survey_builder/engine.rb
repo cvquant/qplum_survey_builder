@@ -3,5 +3,14 @@ module SurveyBuilder
     isolate_namespace SurveyBuilder
     config.eager_load_paths += %W( #{config.root}/app/models/* )
     config.eager_load_paths += %W( #{config.root}/app/models/questions/* )
+
+    initializer :append_migrations do |app|
+      unless app.root.to_s.match root.to_s
+        config.paths["db/migrate"].expanded.each do |expanded_path|
+          app.config.paths["db/migrate"] << expanded_path
+        end
+      end
+    end
+    
   end
 end
